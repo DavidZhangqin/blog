@@ -1,5 +1,6 @@
 <?php
 /* @var $this ArticleController */
+$this->pageTitle = Yii::app()->name;
 ?>
 
 
@@ -9,19 +10,19 @@
         <div class="meta">
             <div class="category">
                 <span class="glyphicon glyphicon-star"></span>
-                <a href="#"><?php echo $article->category->name; ?></a>
+                <a href="/article/page/cate/<?php echo $article->category->category_id; ?>"><?php echo $article->category->name; ?></a>
             </div>
             <div class="views">
                 <span class="fui-eye"></span>
-                <?php echo $article->read_count; ?> views
+                <?php echo $article->read_count; ?> views, <a href="http://blog.com/article/view/<?php echo $article->article_id; ?>#disqus_thread">Link</a>
             </div>
         </div>
-        <h1 class="article-title"><a href="#"><?php echo $article->title; ?></a></h1>
+        <h1 class="article-title"><a href="<?php echo Yii::app()->createUrl('article/view/'.$article->article_id); ?>"><?php echo $article->title; ?></a></h1>
         <div class="post-info">
             <div class="tags">
                 <span class="glyphicon glyphicon-tags"></span>
                 <?php foreach ($article->tags as $tag): ?>
-                    <a href="#"><?php echo $tag->name; ?></a> 
+                    <a class="<?php echo ($tagSelected !== null && $tagSelected == $tag->tag_id) ? 'active' : ''; ?>" href="/article/page/tag/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a> 
                 <?php endforeach; ?>
             </div>
             <div class="date">
@@ -33,51 +34,17 @@
             <?php echo $article->content; ?>
         </div>
         <p class="morelink">
-            <a href="#" class="more-link">Read on &gt;&gt;</a>
+            <a href="<?php echo Yii::app()->createUrl('article/view/'.$article->article_id); ?>" class="more-link">Read on &gt;&gt;</a>
         </p>
     </div>
     <?php endforeach; ?>
-    
-    <div class="article-summary">
-        <div class="meta">
-            <div class="category">
-                <span class="glyphicon glyphicon-star"></span>
-                <a href="#">分类</a>
-            </div>
-            <div class="views">
-                <span class="fui-eye"></span>
-                10 views
-            </div>
-        </div>
-        <h1 class="article-title"><a href="#">Standard Markdown</a></h1>
-        <div class="post-info">
-            <div class="tags">
-                <span class="glyphicon glyphicon-tags"></span>
-                <a href="#">Mysql</a>, 
-                <a href="#">PHP</a>, 
-                <a href="#">Yii</a>
-            </div>
-            <div class="date">
-                <span class="fui-calendar-solid"></span>
-                Dec 23rd, 2013
-            </div>
-        </div>
-        <div class="post-content">
-            <p>随着移动设备的普及，网站也会迎来越来越多移动设备的访问。用适应PC的页面，很多时候对手机用户不友好，那么有些时候，我们需要判断用户是否用手机访问，如果是手机的话，就跳转到指定的手机友好页面。这里就介绍一下，如何判断用户是否用手机访问。</p>
-            <pre><code>*emphasize*   **strong**
-            _emphasize_   __strong__</code></pre>
-        </div>
-        <p class="morelink">
-            <a href="#" class="more-link">Read on &gt;&gt;</a>
-        </p>
-    </div>
 </div>
 <div class="pagenavi">
     <?php if($page > 1): ?>
-        <a href="#" class="prev">&lt; Prev</a>
+        <a href="/article/page/<?php echo ($page - 1); ?>" class="prev">&lt; Prev</a>
     <?php endif; ?>
     <?php if($page * 10 < $totalCount): ?>
-        <a href="#" class="next">Next &gt;</a>
+        <a href="/article/page/<?php echo ($page + 1); ?>" class="next">Next &gt;</a>
     <?php endif; ?>
     <div class="center">
         <a href="#">Blog Archives</a>

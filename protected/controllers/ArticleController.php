@@ -11,20 +11,47 @@ class ArticleController extends Controller
 
 	public function actionPage($id = 1) {
 		$model = new Article;
-		$data = $model->getArticleList($id);
+		$tag = null;
+		$cate = null;
+		if(isset($_REQUEST['cate']) && !empty($_REQUEST['cate'])) {
+			$cate = intval($_REQUEST['cate']);
+		}
+		if(isset($_REQUEST['tag']) && !empty($_REQUEST['tag'])) {
+			$tag = intval($_REQUEST['tag']);
+		}
+		$data = $model->getArticleList($id, $cate, $tag);
 		if(empty($data['articles'])) {
 			$this->redirect('/');
 		}
 		$articles = array();
-		foreach ($data['articles'] as $value) {
-			$articles[] = $this->loadModel($value['article_id']);
+		foreach ($data['articles'] as $key => $value) {
+			$articles[$key] = $this->loadModel($value['article_id']);
+			$content = $articles[$key]->content;
+			$content = strstr($content, "\n", true);
+			$articles[$key]->content = Parsedown::instance()->parse($content);
 		}
 		$renderData = array(
 			'articles' => $articles,
 			'totalCount' => $data['total_count'],
 			'page' => $id,
+			'tagSelected' => $tag,
 		);
 		$this->render('page', $renderData);
+	}
+
+	public function actionView($id) {
+		$article = $this->loadModel($id);
+
+		//利用session 记录文章访问次数
+		if(!isset(Yii::app()->session['read_'.$id]) || Yii::app()->session['read_'.$id] !== true) {
+			$article->read_count += 1;
+			$article->save();
+			Yii::app()->session['read_'.$id] = true;
+		}
+
+		$article->content = Parsedown::instance()->parse($article->content);
+
+		$this->render('view', array('article'=>$article));
 	}
 
 	public function actionError()
@@ -40,7 +67,7 @@ class ArticleController extends Controller
 
 	public function loadModel($id)
 	{
-		$model=Article::model()->findByPk($id);
+		$model=Article::model()->findByPk($id, "is_post=:is_post", array(':is_post'=>1));
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

@@ -134,6 +134,9 @@ h3 {
 .post-info .date {
   float:right;
 }
+.post-info .category {
+  margin-left: 10px;
+}
 .post-info a {
   color: #999;
   margin-left: 6px;
@@ -143,8 +146,16 @@ h3 {
   -o-transition: color 0.3s;
   transition: color 0.3s
 }
+.tags a.active {
+  color: #16a085;
+}
 .post-content {
   margin-bottom: 20px;
+}
+
+.comments {
+  margin-top: 20px;
+  margin-bottom: 15px;
 }
 
 /*navi page*/
@@ -183,6 +194,10 @@ h3 {
 /*a hover*/
 a:hover {
     color: #16a085;
+}
+
+.ml40 {
+  margin-left:40px;
 }
 
 
