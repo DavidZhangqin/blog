@@ -47,6 +47,6 @@ $this->pageTitle = Yii::app()->name;
         <a href="/article/page/<?php echo ($page + 1); ?>" class="next">Next &gt;</a>
     <?php endif; ?>
     <div class="center">
-        <a href="#">Blog Archives</a>
+        <a href="/archives">Blog Archives</a>
     </div>
 </div>

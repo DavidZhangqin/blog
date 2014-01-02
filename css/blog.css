@@ -23,9 +23,13 @@ h2 {
   font-size: 1.5em
 }
 h3 {
-  font-size: 1.3em
+  font-size: 1.3em;
+  font-weight:normal;
 }
-
+h4 {
+  font-size: 1.1em;
+  font-weight:normal;
+}
 .container {
   position: relative;
   min-height: 100%;
@@ -90,9 +94,10 @@ h3 {
 .main-content {
   position: relative;
   float: right;
-  min-height: 100%;
+  min-height: 1000px;
   width: 800px;
-  background: white
+  background: white;
+  z-index: 10000;
 }
 
 .blog-container {
@@ -189,6 +194,59 @@ h3 {
   font-size: 0.9em;
   text-align: center;
   width: auto;
+}
+
+.archives {
+  position: relative;
+  margin-top: 10px;
+}
+.archives .year-block {
+  position: relative;
+  margin-top: 30px;
+}
+.archives .year {
+  line-height: 35px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  padding-top: 5px;
+  margin-top: 0px;
+  border-top: 1px solid #ddd;
+}
+/*.archives .year:before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  width: 100%;
+  border-top: 1px solid #ddd
+}*/
+.archives .article-summary {
+  margin-left: 150px;
+  padding: 5px 0 25px 0;
+}
+.article-title .month-day {
+  margin-right: 20px;
+  color: #999;
+  font-weight: 400;
+}
+.archives h4 {
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+.archives .post-info {
+  padding: 3px 0px 0px 3px;
+}
+
+#category ul {
+  width: 270px;
+  display: none;
+}
+#category ul>li a {
+  /*color: #999;*/
+  margin-left: 150px;
+}
+#category ul>li:hover {
+  background-color: #F16E50;
 }
 
 /*a hover*/

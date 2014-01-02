@@ -84,7 +84,7 @@ class Article extends CActiveRecord
 		);
 	}
 
-	public function getArticleList($page=1, $category_id=null, $tag_id=null, $where="", $limit=10) {
+	public function getArticleList($page=1, $category_id=null, $tag_id=null, $limit=10, $where="") {
 		$select = "SELECT a.article_id FROM blog_article a left join blog_article_tag at on a.article_id=at.article_id left join blog_tag t on at.tag_id=t.tag_id left join blog_category c on a.category_id = c.category_id ";
 		$where .= " where a.is_post = 1";
 		if($tag_id !== null) {
@@ -95,8 +95,13 @@ class Article extends CActiveRecord
 		}
 		$order = " order by a.add_time desc ";
 		$group = " group by a.article_id ";
-		$offset = ($page - 1) * $limit;
-		$sql = $select . $where . $group . $order . " limit " . $offset . ", " . $limit;
+		if($page !== null && $limit !== null) {
+			$offset = ($page - 1) * $limit;
+			$limitWhere = " limit " . $offset . ", " . $limit;
+		} else {
+			$limitWhere = "";
+		}
+		$sql = $select . $where . $group . $order . $limitWhere;
 		if($tag_id !== null) {
 			$sql_count = "SELECT COUNT(1) FROM blog_article a left join blog_article_tag at on a.article_id=at.article_id left join blog_tag t on at.tag_id=t.tag_id ".$where;
 		} elseif($category_id !== null) {

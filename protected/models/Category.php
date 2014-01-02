@@ -74,24 +74,9 @@ class Category extends CActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('category_id',$this->category_id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('add_time',$this->add_time,true);
-		$criteria->compare('update_time',$this->update_time,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+	public static function getCategories() {
+		$sql = "SELECT category_id, name FROM blog_category";
+		$categories = Yii::app()->db->createCommand($sql)->queryAll();
+		return $categories;
 	}
 }

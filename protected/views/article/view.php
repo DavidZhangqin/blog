@@ -6,25 +6,15 @@ $this->pageTitle = $article->title;
 
 <div class="artile-list">
     <div class="article-summary">
-        <!-- <div class="meta">
-            <div class="category">
-                <span class="glyphicon glyphicon-star"></span>
-                <a href="#"><?php echo $article->category->name; ?></a>
-            </div>
-            <div class="views">
-                <span class="fui-eye"></span>
-                <?php echo $article->read_count; ?> views
-            </div>
-        </div> -->
         <h1 class="article-title"><a href="#"><?php echo $article->title; ?></a></h1>
         <div class="post-info">
             <div class="tags">
                 <span class="glyphicon glyphicon-tags"></span>
                 <?php foreach ($article->tags as $tag): ?>
-                    <a href="#"><?php echo $tag->name; ?></a> 
+                    <a href="/archives/index/tag/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a> 
                 <?php endforeach; ?>
                 <span class="glyphicon glyphicon-star ml40"></span>
-                <a href="#"><?php echo $article->category->name; ?></a>
+                <a href="/archives/index/cate/<?php echo $article->category->category_id; ?>"><?php echo $article->category->name; ?></a>
             </div>
             <div class="date">
                 <span class="fui-calendar-solid"></span>
