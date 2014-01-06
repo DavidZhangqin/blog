@@ -21,6 +21,7 @@ class ArticleController extends Controller
 		}
 		$data = $model->getArticleList($id, $cate, $tag);
 		if(empty($data['articles'])) {
+			throw new CHttpException(404,'The requested page does not exist.');
 			$this->redirect('/');
 		}
 		$articles = array();

@@ -15,6 +15,7 @@ class ArchivesController extends Controller
         }
         $data = $model->getArticleList(null, $cate, $tag, null);
         if(empty($data['articles'])) {
+			throw new CHttpException(404,'The requested page does not exist.');
             $this->redirect('/archives');
         }
         $archives = array();
