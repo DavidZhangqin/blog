@@ -30,7 +30,7 @@ $tags = Tag::getTags();
 
 	<div class="demo-sidebar">
         <div class="avatar">
-            <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/exaple-image.jpg" class="">
+            <img src="<?php echo Common::get_gravatar(); ?>" class="">
         </div>
         <div class="title">
             <h1><a href="/"><?php echo Yii::app()->name; ?></a></h1>
